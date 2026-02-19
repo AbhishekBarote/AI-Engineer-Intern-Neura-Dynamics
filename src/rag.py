@@ -37,7 +37,9 @@ class RAGPipeline:
         print(f"Retrieved {len(retrieved_docs)} documents.")
         
         if not retrieved_docs:
-            return "No relevant documents found."
+            print("No documents found. Letting LLM handle it (potential greeting).")
+            # Pass empty context to the LLM so it can use the prompt instructions (e.g. for greetings)
+            return self.generate_answer(query, [])
             
         answer = self.generate_answer(query, retrieved_docs)
         return answer
