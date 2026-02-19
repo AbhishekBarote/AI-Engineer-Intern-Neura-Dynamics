@@ -12,8 +12,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Fix for Streamlit Cloud: Load secrets into os.environ
-if "GOOGLE_API_KEY" in st.secrets:
-    os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+try:
+    if "GOOGLE_API_KEY" in st.secrets:
+        os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+except Exception:
+    pass # Run locally using .env if no secrets found
 
 # Page Config
 st.set_page_config(
@@ -30,6 +33,19 @@ st.markdown("Ask me anything about our Refund, Shipping, or Cancellation policie
 if not os.getenv("GOOGLE_API_KEY"):
     st.error("⚠️ GOOGLE_API_KEY not found! Please check your .env file.")
     st.stop()
+
+# Check for ChromaDB and Ingest if missing (Cloud Deployment Fix)
+chroma_dir = os.path.join(os.path.dirname(__file__), "..", "chroma_db")
+if not os.path.exists(chroma_dir):
+    st.warning("⚠️ Vector Store not found. Running ingestion... (This happens once)")
+    from src.ingest import ingest
+    with st.spinner("Ingesting policy documents..."):
+        try:
+            ingest()
+            st.success("Ingestion complete! Reloading...")
+            st.rerun()
+        except Exception as e:
+            st.error(f"Ingestion failed: {e}")
 
 # Initialize RAG Pipeline (Cached to avoid reloading on every rerun)
 @st.cache_resource
