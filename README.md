@@ -14,7 +14,7 @@ A Retrieval-Augmented Generation (RAG) system that answers customer questions ba
 
 1.  **Clone the repository**:
     ```bash
-    git clone <repo_url>
+    git clone https://github.com/AbhishekBarote/AI-Engineer-Intern-Neura-Dynamics.git
     cd <repo_name>
     ```
 
