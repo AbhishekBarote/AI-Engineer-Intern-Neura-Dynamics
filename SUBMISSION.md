@@ -13,7 +13,7 @@ I have prepared the code locally. You need to push it to your GitHub account:
     git remote add origin https://github.com/<YOUR_USERNAME>/policy-rag-assistant.git
     git push -u origin main
     ```
-3.  **Submit the link**: `https://github.com/<YOUR_USERNAME>/policy-rag-assistant`
+3.  **Submit the link**: `https://github.com/AbhishekBarote/AI-Engineer-Intern-Neura-Dynamics`
 
 ## 2. Deployed Link
 This requires deploying the app. The easiest way is **Streamlit Community Cloud**:
