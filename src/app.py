@@ -11,6 +11,10 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Fix for Streamlit Cloud: Load secrets into os.environ
+if "GOOGLE_API_KEY" in st.secrets:
+    os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+
 # Page Config
 st.set_page_config(
     page_title="Policy Assistant RAG",
