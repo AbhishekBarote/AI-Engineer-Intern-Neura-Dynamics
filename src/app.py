@@ -40,7 +40,9 @@ except Exception as e:
 
 # Initialize Chat History
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Hello! I am the Policy Assistant. I am here to help you with questions about our Refund, Shipping, and Cancellation policies. How can I assist you today?"}
+    ]
 
 # Display Chat History
 for message in st.session_state.messages:
